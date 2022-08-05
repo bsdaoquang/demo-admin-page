@@ -1,13 +1,24 @@
 import { Button, message, Modal, Space, Table } from 'antd'
+import { useState } from 'react'
 import { HeaderContent } from '../components'
+import { AddNewOrder } from '../modals'
 import { Order } from '../models'
 
 const Dashboard = () => {
+  const [isVisibleModalAddProduc, setIsVisibleModalAddProduc] = useState(false)
+
+  const onCancel = () => {
+    setIsVisibleModalAddProduc(false)
+  }
+
+  //show modal add product
   const showAlert = () => {
-    Modal.confirm({
-      title: 'Info',
-      content: 'customer choice a production to at list',
-    })
+    setIsVisibleModalAddProduc(true)
+
+    // Modal.confirm({
+    //   title: 'Info',
+    //   content: 'customer choice a production to at list',
+    // })
   }
 
   const orders: Order[] = [
@@ -47,6 +58,12 @@ const Dashboard = () => {
       createBy: 'user123',
     },
   ]
+
+  //get orders
+  //now is add product to orders
+  const getOrders = () => {
+    console.log('add new product')
+  }
 
   const columns = [
     {
@@ -98,6 +115,12 @@ const Dashboard = () => {
       />
 
       <Table dataSource={orders} columns={columns} />
+
+      <AddNewOrder
+        isVisible={isVisibleModalAddProduc}
+        onCancel={onCancel}
+        getOrders={getOrders}
+      />
     </div>
   )
 }
